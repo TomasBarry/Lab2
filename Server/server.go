@@ -2,6 +2,7 @@ package main
 
 import (
     "fmt"
+    "io/ioutil"
     "net"
 )
 
@@ -13,8 +14,10 @@ var (
     activeThreads = 0
 )
 
-func handleConnection(c net.Conn) {
+func handleConnection(conn net.Conn) {
     fmt.Println("Handling connection ", activeThreads)
+    buff, _ := ioutil.ReadAll(conn)
+    fmt.Println(string(buff))
     activeThreads -= 1
     fmt.Println("Handled connection ", activeThreads)
 }
