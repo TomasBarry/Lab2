@@ -1,9 +1,10 @@
 package main
 
 import (
-    "fmt"
-    "io/ioutil"
-    "net"
+	"fmt"
+	"io/ioutil"
+	"net"
+	"os"
 )
 
 const (
@@ -30,7 +31,7 @@ func main() {
 	// wait for new clients to connect
 	for {
 		conn, _ := listener.Accept()
-		if activeThreads < MaxNumberOfThreads {
+		if activeThreads < MAX_THREAD_POOL {
 			fmt.Println("Less than max number of threads")
 			activeThreads += 1
 			go handleConnection(conn)
