@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"net"
 	"os"
 	"bytes"
@@ -12,7 +11,7 @@ const (
 	CONN_TYPE = "tcp"
 	MAX_THREAD_POOL = 1
 	KILL_COMMAND = "KILL_SERVICE\n"
-	HELLO_COMMAND ="HELO text\n"
+	HELLO_COMMAND ="HELLO text\n"
 )
 
 var (
@@ -20,10 +19,12 @@ var (
 )
 
 func handleConnection(conn net.Conn) {
-	fmt.Println("Handling connection ", activeThreads)
-	buff, e := ioutil.ReadAll(conn)
+	fmt.Println("Addr: ", conn.LocalAddr())
+	buff := make([]byte, 1024)
+	readLen, e := conn.Read(buff)
 	handleError(e)
-	message := string(buff)
+	message := string(buff[:readLen])
+	fmt.Println(message)
 	switch message {
 	case KILL_COMMAND:
 		os.Exit(0)
