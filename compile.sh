@@ -7,4 +7,4 @@ export PATH=$PATH:$GOPATH/bin
 go get github.com/tools/godep
 apt-get install bzr -y
 
-go install $PWD/Server/server.go
+go install $PWD/Server/HttpServer/httpserver.go
