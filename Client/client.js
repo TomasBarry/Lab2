@@ -32,4 +32,4 @@ socket.on('end', () => {
 
 
 // Send message to the echo server through the socket connection
-socket.write('KILL_SERVICE\n');
+socket.write('HELLO text\n');
