@@ -4,14 +4,13 @@ import (
 	"fmt"
 	"net"
 	"os"
+	"regexp"
 	"bytes"
 )
 
 const (
 	CONN_TYPE = "tcp"
-	MAX_THREAD_POOL = 1
-	KILL_COMMAND = "KILL_SERVICE\n"
-	HELLO_COMMAND ="HELLO text\n"
+	MAX_THREAD_POOL = 10
 )
 
 var (
@@ -19,30 +18,38 @@ var (
 )
 
 func handleConnection(conn net.Conn) {
-	fmt.Println("Addr: ", conn.LocalAddr())
-	buff := make([]byte, 1024)
-	readLen, e := conn.Read(buff)
-	handleError(e)
-	message := string(buff[:readLen])
-	fmt.Println(message)
-	switch message {
-	case KILL_COMMAND:
-		os.Exit(0)
-	case HELLO_COMMAND:
-		// "HELO text\nIP:[ip address]\nPort:[port number]\nStudentID:[your student ID]\n"
-		var response bytes.Buffer
-		response.WriteString(message)
-		response.WriteString("IP:10.62.0.117\n")
-		response.WriteString("Port:8000\n")
-		response.WriteString("StudentID:13321218\n")
-		conn.Write([]byte(response.String()))
-		fmt.Println(response.String())
-	default:
-		// This would handle all other messages
-		fmt.Println(message)
+	for {
+		// fmt.Println("Addr: ", conn.LocalAddr())
+		buff := make([]byte, 1024)
+		readLen, e := conn.Read(buff)
+		//fmt.Println("Message is : ", string(buff))
+		handleError(e)
+		message := string(buff[:readLen])
+		//fmt.Println(message)
+		validHello := regexp.MustCompile(`HELO *`)
+		validKill := regexp.MustCompile(`KILL_SERVICE *`)
+		if validKill.MatchString(message) {
+			fmt.Println("Gonna kill the server")
+			conn.Close()
+			os.Exit(0)
+		} else if  validHello.MatchString(message) {
+			fmt.Println("Got a helo message")
+			// "HELO text\nIP:[ip address]\nPort:[port number]\nStudentID:[your student ID]\n"
+			var response bytes.Buffer
+			response.WriteString(message)
+			response.WriteString("IP:10.62.0.117\n")
+			response.WriteString("Port:8000\n")
+			response.WriteString("StudentID:13321218\n")
+			conn.Write([]byte(response.String()))
+			handleError(e)
+			//fmt.Println(response.String())
+		} else {
+			fmt.Println("Got a random message")
+			// This would handle all other messages
+			//fmt.Println(message)
+		}
 	}
-	activeThreads -= 1
-	fmt.Println("Handled connection ", activeThreads)
+	//fmt.Println("Handled connection ", activeThreads)
 }
 
 
@@ -63,13 +70,14 @@ func main() {
 	// wait for new clients to connect
 	for {
 		conn, e := listener.Accept()
+		fmt.Println("A new connection")
 		handleError(e)
 		if activeThreads < MAX_THREAD_POOL {
-			fmt.Println("Less than max number of threads")
+			//fmt.Println("Less than max number of threads")
 			activeThreads += 1
 			go handleConnection(conn)
 		} else {
-			fmt.Println("Too many threads already")
+			//fmt.Println("Too many threads already")
 		}
 	}
 }
