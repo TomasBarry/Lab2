@@ -32,4 +32,4 @@ socket.on('end', () => {
 
 
 // Send message to the echo server through the socket connection
-socket.write('GET http://' + socketVariables.serverIPAddress + '/echo.php?message=hello HTTP/1.1\n\n');
+socket.write('KILL_SERVICE\n');
