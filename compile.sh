@@ -8,4 +8,4 @@ export GOBIN=$GOPATH/bin
 go get github.com/tools/godep
 apt-get install bzr -y
 
-go get github.com/TomasBarry/Lab2/Server
+go get github.com/TomasBarry/Lab2

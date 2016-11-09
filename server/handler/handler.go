@@ -15,9 +15,10 @@ func HandleHelo(message string, conn Conn) {
 	// serverInfo[0] = 10.62.0.117
 	// serverInfo[1] = 8000
 	serverInfo := strings.Split(conn.localAddr(), ":")
-	conn.Write([]byte(fmt.Sprintf("%sIP:%s\nPort:%s\nStudentID:%s\n", message, serverInfo[0], serverInfo[1], "13321218"))
+	conn.Write([]byte(fmt.Sprintf("%sIP:%s\nPort:%s\nStudentID:%s\n", message, serverInfo[0], serverInfo[1], "13321218")))
 }
 
-func HandleOther() {
+func HandleOther(conn Conn) {
 	// stub methond
+	fmt.Println(conn)
 }
