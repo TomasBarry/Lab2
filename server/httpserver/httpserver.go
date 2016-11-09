@@ -3,7 +3,7 @@ package httpserver
 import (
 	"net"
 	"os"
-	"github.com/TomasBarry/Lab2/handler"
+	"github.com/TomasBarry/Lab2/server/handler"
 )
 
 const (
