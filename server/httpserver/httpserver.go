@@ -34,7 +34,7 @@ func handleConnection(conn Conn) {
 	for {
 		switch message := readSocket(conn) {
 		case message.HasPrefix(HELO_COMMAND):
-			handler.HandleHelo(conn)
+			handler.HandleHelo(message, conn)
 		case message == KILL_COMMAND:
 			handler.HandleKill(conn)
 		default:
