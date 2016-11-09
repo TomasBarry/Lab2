@@ -12,7 +12,7 @@ const (
 	KILL_COMMAND = "KILL_SERVICE\n"
 )
 
-func createServer() {
+func CreateServer() {
 	// accept command line arguements where args[0] is the port number to run on
 	args := os.args[1:]
 	listener, _ := net.Listen(CONN_TYPE, ":" + args[0])
