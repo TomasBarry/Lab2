@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/TomasBarry/Lab2/HttpServer"
+	"github.com/TomasBarry/Lab2/httpserver"
 )
 
 func main() {
