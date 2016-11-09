@@ -1,3 +1,3 @@
 #!/bin/bash
 
-server $1
+lab2 $1
