@@ -5,10 +5,12 @@ import (
 	"fmt"
 	"net"
 	"strings"
+	"os"
 )
 
 func HandleKill(conn net.Conn) {
 	conn.Close()
+	os.Exit(1)
 }
 
 func HandleHelo(message string, conn net.Conn) {
