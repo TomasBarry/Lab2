@@ -2,7 +2,7 @@
 
 # Install Go on the current machine
 export PATH=$PATH:$PWD/Dependencies/gowork/bin
-export GOPATH=$PWD/Dependencies/gowork/src
+export GOPATH=$PWD/Dependencies/gowork
 export PATH=$PATH:$GOPATH/bin
 export GOBIN=$GOPATH/bin
 go get github.com/tools/godep
