@@ -12,18 +12,16 @@ const (
 	KILL_COMMAND = "KILL_SERVICE\n"
 )
 
-func CreateServer() {
-	// accept command line arguements where args[0] is the port number to run on
-	args := os.args[1:]
-	listener, _ := net.Listen(CONN_TYPE, ":" + args[0])
+func CreateServer(port string) {
+	listener, _ := net.Listen(CONN_TYPE, ":" + port)
 	// wait for connections
 	for {
-		conn, _ listener.Accept()
+		conn, _ := listener.Accept()
 		go handleConnection(conn)
 	}
 }
 
-func readSocket(conn Conn) message string {
+func readSocket(conn Conn) message {
 	buffer := make([]byte, 1024)
 	readLength, _ := conn.Read(buff)
 	message := string(buff[:readLength])
