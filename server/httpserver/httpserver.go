@@ -2,7 +2,6 @@ package httpserver
 
 import (
 	"net"
-	"os"
 	"github.com/TomasBarry/Lab2/server/handler"
 )
 
@@ -21,16 +20,16 @@ func CreateServer(port string) {
 	}
 }
 
-func readSocket(conn Conn) message {
+func readSocket(conn net.Conn) string {
 	buffer := make([]byte, 1024)
-	readLength, _ := conn.Read(buff)
-	message := string(buff[:readLength])
+	readLength, _ := conn.Read(buffer)
+	return string(buffer[:readLength])
 }
 
-func handleConnection(conn Conn) {
+func handleConnection(conn net.Conn) {
 	// persist the socket connection
 	for {
-		switch message := readSocket(conn) {
+		switch message := readSocket(conn); {
 		case message.HasPrefix(HELO_COMMAND):
 			handler.HandleHelo(message, conn)
 		case message == KILL_COMMAND:
