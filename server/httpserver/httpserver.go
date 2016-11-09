@@ -3,6 +3,7 @@ package httpserver
 import (
 	"net"
 	"github.com/TomasBarry/Lab2/server/handler"
+	"strings"
 )
 
 const (
@@ -30,7 +31,7 @@ func handleConnection(conn net.Conn) {
 	// persist the socket connection
 	for {
 		switch message := readSocket(conn); {
-		case message.HasPrefix(HELO_COMMAND):
+		case strings.HasPrefix(message, HELO_COMMAND):
 			handler.HandleHelo(message, conn)
 		case message == KILL_COMMAND:
 			handler.HandleKill(conn)
