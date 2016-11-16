@@ -6,14 +6,14 @@
 
 Golang server that accepts socket connections from clients and handles the following commands:
   1. HELO:
-      a. Command: `"HELO <TEXT>"`
-      b. Action: Respond with `"HELO <TEXT>\nIP:[ip address]\nPort:[port number]\nStudentID:[your student ID]\n"`
+    * Command: `"HELO <TEXT>"`
+    * Action: Respond with `"HELO <TEXT>\nIP:[ip address]\nPort:[port number]\nStudentID:[your student ID]\n"`
   2. KILL_SERVICE:
-      a. Command: `"KILL_SERVICE\n"`
-      b. Action: None, kill the server
+    * Command: `"KILL_SERVICE\n"`
+    * Action: None, kill the server
   3. <ANY OTHER COMMAND>
-      a. Command: `"<ANY TEXT>"`
-      b. Action: Do nothing
+    * Command: `"<ANY TEXT>"`
+    * Action: Do nothing
 
 ## Prerequisits: 
 
