@@ -1,6 +1,7 @@
 package httpserver
 
 import (
+	"fmt"
 	"net"
 	"github.com/TomasBarry/Lab2/server/handler"
 	"strings"
