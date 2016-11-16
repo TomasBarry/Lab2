@@ -1,5 +1,5 @@
 package httpserver
-
+daf
 import (
 	"net"
 	"github.com/TomasBarry/Lab2/server/handler"
@@ -35,6 +35,8 @@ func handleConnection(conn net.Conn) {
 			handler.HandleHelo(message, conn)
 		case message == KILL_COMMAND:
 			handler.HandleKill(conn)
+			fmt.Println("SERVER")
+			return
 		default:
 			handler.HandleOther(conn)
 		}
