@@ -11,7 +11,7 @@ Golang server that accepts socket connections from clients and handles the follo
   2. KILL_SERVICE:
     * Command: `"KILL_SERVICE\n"`
     * Action: None, kill the server
-  3. <ANY OTHER COMMAND>
+  3. \<ANY OTHER COMMAND\>
     * Command: `"<ANY TEXT>"`
     * Action: Do nothing
 
